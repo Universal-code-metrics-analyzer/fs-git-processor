@@ -9,7 +9,7 @@ readme = "README.md"
 python = "^3.12"
 pydantic = "^2.7.0"
 gitpython = "^3.1.43"
-core = { git = "https://github.com/Universal-code-metrics-analyzer/core.git", rev = "d4fd168d7d672b78358d955c61592314c50127c3" }
+core = {git = "https://github.com/Universal-code-metrics-analyzer/core.git", rev = "948cba9835ed8e4aa4cf88d1fc6bc84f5bf27c35"}
 
 
 [build-system]
@@ -45,4 +45,4 @@ known_first_party = ["."]
 
 
 [tool.poetry.plugins."ucma.git_processor.plugin"]
-export = "processor.FsGitProcessor"
+export = "fs_git_processor.processor:FsGitProcessor"
