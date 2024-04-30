@@ -9,7 +9,7 @@ readme = "README.md"
 python = "^3.12"
 pydantic = "^2.7.0"
 gitpython = "^3.1.43"
-core = {git = "https://github.com/Universal-code-metrics-analyzer/core.git", rev = "948cba9835ed8e4aa4cf88d1fc6bc84f5bf27c35"}
+core = {git = "https://github.com/Universal-code-metrics-analyzer/core.git", rev = "dev"}
 
 
 [build-system]
