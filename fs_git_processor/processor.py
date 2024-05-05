@@ -20,13 +20,10 @@ class FsGitProcessor(
         repo = Repo(self.config.repo)
         assert repo
         self.repo = repo
-        self.commit = repo.commit(self.commit_sha)
+        self.commit = repo.commit(self.ref)
         return self.commit.tree
 
     async def process_blob(self, blob: Blob, depth: int) -> BlobData:
-        if self.config.verbose:
-            print(f'{"|" * (depth + 1)}- blob: {blob.path}')
-
         return BlobData(
             name=blob.name,
             path=str(blob.path),
@@ -34,9 +31,6 @@ class FsGitProcessor(
         )
 
     async def process_tree(self, tree: Tree, depth: int) -> TreeData:
-        if self.config.verbose:
-            print(f'{"|" * (depth + 1)} tree: {tree.path}')
-
         blob_datas: list[BlobData] = []
         for blob in tree.blobs:
             blob_datas.append(await self.process_blob(blob, depth))
