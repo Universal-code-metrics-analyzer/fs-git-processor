@@ -2,6 +2,7 @@ from pathlib import Path
 
 from core.git_processor import (
     BlobData,
+    CommitMeta,
     GitProcessor,
     GitProcessorConfigShape,
     TreeData,
@@ -20,7 +21,7 @@ class FsGitProcessor(
         repo = Repo(self.config.repo)
         assert repo
         self.repo = repo
-        self.commit = repo.commit(self.ref)
+        self.commit = repo.commit(self.sha)
         return self.commit.tree
 
     async def process_blob(self, blob: Blob, depth: int) -> BlobData:
@@ -40,3 +41,12 @@ class FsGitProcessor(
             tree_datas.append(await self.process_tree(subtree, depth + 1))
 
         return TreeData(name=tree.name, path=str(tree.path), trees=tree_datas, blobs=blob_datas)
+
+    async def get_commit_meta(self) -> CommitMeta:
+        return CommitMeta(
+            author_email=self.commit.author.email,
+            committer_email=self.commit.committer.email,
+            committed_date=self.commit.committed_datetime,
+            authored_date=self.commit.authored_datetime,
+            message=self.commit.message,
+        )
