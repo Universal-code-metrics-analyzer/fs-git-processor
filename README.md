@@ -5,7 +5,7 @@ Git processor plugin, which can be used to analyze a local Git repository.
 **Install**
 
 ``` bash
-poetry add git+https://github.com/Universal-code-metrics-analyzer/fs-git-processor@v0.1.0
+poetry add git+https://github.com/Universal-code-metrics-analyzer/fs-git-processor@v0.2.0
 ```
 
 **Runner configuration**
