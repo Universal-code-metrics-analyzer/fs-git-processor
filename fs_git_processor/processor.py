@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import Any
 
 from core.git_processor import (
     BlobData,
@@ -17,11 +18,14 @@ class FsGitProcessorConfigShape(GitProcessorConfigShape):
 class FsGitProcessor(
     GitProcessor[FsGitProcessorConfigShape, Tree, Blob], config_shape=FsGitProcessorConfigShape
 ):
-    async def get_root_tree(self) -> Tree:
+    def __init__(self, config_dict: dict[str, Any], sha: str) -> None:
+        super().__init__(config_dict, sha)
         repo = Repo(self.config.repo)
         assert repo
         self.repo = repo
         self.commit = repo.commit(self.sha)
+
+    async def get_root_tree(self) -> Tree:
         return self.commit.tree
 
     async def process_blob(self, blob: Blob, depth: int) -> BlobData:
